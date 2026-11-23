@@ -19,7 +19,7 @@ It needs about 2 MB of RAM and fits Railway's Free plan (0.5 GB) with room to sp
 
 | Variable | Default | Purpose |
 |---|---|---|
-| `HOMER_PASSWORD` | `${{secret(24)}}` | Basic-auth password, generated at deploy. Find it in the service's **Variables** tab. Set it to an empty value to make the dashboard public. |
+| `HOMER_PASSWORD` | generated (32 letters and digits) | Basic-auth password, generated at deploy. Find it in the service's **Variables** tab. Set it to an empty value to make the dashboard public. |
 | `HOMER_USERNAME` | `admin` | Basic-auth user name. |
 | `PORT` | `8080` | Port lighttpd listens on (the public domain points to it). |
 
