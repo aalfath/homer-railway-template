@@ -1,0 +1,53 @@
+# Homer starter configuration, installed by the Railway template on first boot.
+# Replace it with your own: set the HOMER_CONFIG_YML variable on the Homer service
+# to the full contents of your config.yml and redeploy.
+# All options: https://github.com/homer-dashboard/homer/blob/main/docs/configuration.md
+
+title: "Homer"
+subtitle: "My services"
+logo: "assets/icons/logo.svg"
+
+header: true
+footer: false
+
+theme: default
+
+message:
+  style: "is-info"
+  title: "Welcome to your Homer dashboard"
+  icon: "fa fa-circle-info"
+  content: "This is the starter page. To show your own services, put your config.yml in the <b>HOMER_CONFIG_YML</b> variable of the Homer service on Railway and redeploy. See the <a href='https://github.com/homer-dashboard/homer/blob/main/docs/configuration.md'>configuration docs</a>."
+
+links:
+  - name: "Homer docs"
+    icon: "fas fa-book"
+    url: "https://github.com/homer-dashboard/homer/blob/main/docs/configuration.md"
+    target: "_blank"
+
+services:
+  - name: "Getting started"
+    icon: "fas fa-rocket"
+    items:
+      - name: "Configuration"
+        icon: "fas fa-gear"
+        subtitle: "Every config.yml option"
+        url: "https://github.com/homer-dashboard/homer/blob/main/docs/configuration.md"
+        target: "_blank"
+      - name: "Smart cards"
+        icon: "fas fa-plug"
+        subtitle: "Live status for 60+ apps"
+        url: "https://github.com/homer-dashboard/homer/blob/main/docs/customservices.md"
+        target: "_blank"
+      - name: "Theming"
+        icon: "fas fa-palette"
+        subtitle: "Colours, themes and custom CSS"
+        url: "https://github.com/homer-dashboard/homer/blob/main/docs/theming.md"
+        target: "_blank"
+  - name: "Railway"
+    icon: "fas fa-train"
+    items:
+      - name: "Railway dashboard"
+        icon: "fas fa-cloud"
+        subtitle: "Variables, logs and redeploys"
+        url: "https://railway.com/dashboard"
+        target: "_blank"
