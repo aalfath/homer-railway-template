@@ -8,9 +8,10 @@ USER root
 
 COPY lighttpd-railway.conf /lighttpd-railway.conf
 COPY start.sh /railway-start.sh
+COPY auth.lua /railway-auth.lua
 COPY config.yml /www/railway-default-config.yml
 
-RUN chmod 0755 /railway-start.sh \
+RUN chmod 0755 /railway-start.sh && chmod 0644 /railway-auth.lua \
  && printf 'ok\n' > /www/healthz \
  && chown 1000:1000 /www/healthz /www/railway-default-config.yml
 

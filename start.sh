@@ -28,33 +28,15 @@ if [ -n "${HOMER_CONFIG_YML:-}" ]; then
   chown 1000:1000 "$ASSETS/config.yml"
 fi
 
-# 4. Basic auth (lighttpd plain user file, readable only by the lighttpd user).
-#    /healthz stays open so Railway's health check works without a login.
-AUTH_CONF=/etc/lighttpd/railway-auth.conf
-USERFILE=/run/homer-users
+# 4. Basic auth is done in /railway-auth.lua from HOMER_USERNAME and HOMER_PASSWORD.
 if [ -n "${HOMER_PASSWORD:-}" ]; then
-  USERNAME="${HOMER_USERNAME:-admin}"
-  case "$USERNAME" in *:*) echo "railway: HOMER_USERNAME must not contain ':'" >&2; exit 1;; esac
-  umask 077
-  printf '%s:%s\n' "$USERNAME" "$HOMER_PASSWORD" > "$USERFILE"
-  chown 1000:1000 "$USERFILE"
-  umask 022
-  cat > "$AUTH_CONF" <<'CONF'
-auth.backend = "plain"
-auth.backend.plain.userfile = "/run/homer-users"
-$HTTP["url"] !~ "^/healthz$" {
-  auth.require = ( "" => ( "method" => "basic", "realm" => "Homer", "require" => "valid-user" ) )
-}
-CONF
-  echo "railway: basic auth on (user $USERNAME)"
+  echo "railway: basic auth on (user ${HOMER_USERNAME:-admin})"
 else
-  : > "$AUTH_CONF"
   echo "railway: HOMER_PASSWORD is empty, the dashboard is public"
 fi
 
 # 5. lighttpd in the foreground (it drops to the lighttpd user itself).
 echo "railway: starting Homer $(cat /www/VERSION 2>/dev/null || true) on port $PORT"
-exec 3>&1
 lighttpd -D -f /lighttpd-railway.conf &
 PID=$!
 STOPPING=0
