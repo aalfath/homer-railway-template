@@ -16,7 +16,11 @@ chown -R 1000:1000 "$ASSETS" 2>/dev/null || true
 #    overwriting anything already on the volume, and install a starter config.
 if [ ! -f "$ASSETS/config.yml" ]; then
   echo "railway: no config.yml on the volume, installing the default assets and a starter config"
-  cp -Rn /www/default-assets/. "$ASSETS/"
+  for SRC in /www/default-assets/* /www/default-assets/.[!.]*; do
+    [ -e "$SRC" ] || continue
+    DST="$ASSETS/$(basename "$SRC")"
+    [ -e "$DST" ] || cp -R "$SRC" "$DST"
+  done
   cp /www/railway-default-config.yml "$ASSETS/config.yml"
   chown -R 1000:1000 "$ASSETS"
 fi
